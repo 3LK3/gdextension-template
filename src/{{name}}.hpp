@@ -1,5 +1,5 @@
-#ifndef {{def_name}}_MACHINE_HPP
-#define {{def_name}}_MACHINE_HPP
+#ifndef {{def_name}}_HPP
+#define {{def_name}}_HPP
 
 #include <godot_cpp/classes/node.hpp>
 

@@ -2,7 +2,7 @@
 import os
 import sys
 
-library_name = "{{name}}"
+library_name = "{{lib_name}}"
 
 env = SConscript("godot-cpp/SConstruct")
 # For reference:
