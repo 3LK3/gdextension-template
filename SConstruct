@@ -33,4 +33,4 @@ else:
 
 Default(library)
 
-Command("{{name}}.gdextension", "demo/addons/bin/{{name}}.gdextension", Copy("$TARGET", "$SOURCE"))
+# Command("{{name}}.gdextension", "demo/addons/bin/{{name}}.gdextension", Copy("$TARGET", "$SOURCE"))
