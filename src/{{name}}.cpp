@@ -1,39 +1,28 @@
-#include "state_machine.hpp"
+#include "{{name}}.hpp"
 #include <godot_cpp/core/class_db.hpp>
 
 using namespace godot;
 
-StateMachine::StateMachine()
+{{class_name}}::{{class_name}}()
 {
 }
 
-StateMachine::~StateMachine()
+{{class_name}}::~{{class_name}}()
 {
 }
 
-void StateMachine::_bind_methods()
-{
-    ClassDB::add_property("StateMachine", PropertyInfo(Variant::OBJECT, "active_state"), "");
-}
-
-void StateMachine::_ready()
+void {{class_name}}::_bind_methods()
 {
 }
 
-void StateMachine::_process(double delta)
+void {{class_name}}::_ready()
 {
 }
 
-void StateMachine::_physics_process(double delta)
+void {{class_name}}::_process(double delta)
 {
 }
 
-State StateMachine::get_active_state() const
+void {{class_name}}::_physics_process(double delta)
 {
-    return active_state;
-}
-
-void StateMachine::set_active_state(const State pstate)
-{
-    active_state = pstate;
 }

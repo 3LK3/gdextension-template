@@ -1,19 +1,17 @@
 #include "register_types.hpp"
-#include "state_machine.hpp"
-#include "state.hpp"
+#include "{{name}}.hpp"
 
-void initialize_state_machine_module(ModuleInitializationLevel p_level)
+void initialize_{{name}}_module(ModuleInitializationLevel p_level)
 {
     if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE)
     {
         return;
     }
 
-    ClassDB::register_class<StateMachine>();
-    ClassDB::register_class<State>();
+    ClassDB::register_class<{{class_name}}>();
 }
 
-void uninitialize_state_machine_module(ModuleInitializationLevel p_level)
+void uninitialize_{{name}}_module(ModuleInitializationLevel p_level)
 {
     if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE)
     {
@@ -24,12 +22,12 @@ void uninitialize_state_machine_module(ModuleInitializationLevel p_level)
 extern "C"
 {
     // Initialization.
-    GDExtensionBool GDE_EXPORT state_machine_library_init(GDExtensionInterfaceGetProcAddress p_get_proc_address, const GDExtensionClassLibraryPtr p_library, GDExtensionInitialization *r_initialization)
+    GDExtensionBool GDE_EXPORT {{name}}_library_init(GDExtensionInterfaceGetProcAddress p_get_proc_address, const GDExtensionClassLibraryPtr p_library, GDExtensionInitialization *r_initialization)
     {
         godot::GDExtensionBinding::InitObject init_obj(p_get_proc_address, p_library, r_initialization);
 
-        init_obj.register_initializer(initialize_state_machine_module);
-        init_obj.register_terminator(uninitialize_state_machine_module);
+        init_obj.register_initializer(initialize_{{name}}_module);
+        init_obj.register_terminator(uninitialize_{{name}}_module);
         init_obj.set_minimum_library_initialization_level(MODULE_INITIALIZATION_LEVEL_SCENE);
 
         return init_obj.init();

@@ -1,5 +1,5 @@
-#ifndef GDSTATEMACHINE_STATE_MACHINE_HPP
-#define GDSTATEMACHINE_STATE_MACHINE_HPP
+#ifndef {{def_name}}_MACHINE_HPP
+#define {{def_name}}_MACHINE_HPP
 
 #include <godot_cpp/classes/node.hpp>
 
