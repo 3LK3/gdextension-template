@@ -19,7 +19,7 @@ sources = Glob("src/*.cpp")
 
 if env["platform"] == "macos":
     library = env.SharedLibrary(
-        "demo/bin/lib{}.{}.{}.framework/lib{}.{}.{}".format(
+        "demo/addons/bin/lib{}.{}.{}.framework/lib{}.{}.{}".format(
             library_name, env["platform"], env["target"], 
             library_name, env["platform"], env["target"]
         ),
@@ -27,8 +27,10 @@ if env["platform"] == "macos":
     )
 else:
     library = env.SharedLibrary(
-        "demo/bin/lib{}{}{}".format(library_name, env["suffix"], env["SHLIBSUFFIX"]),
+        "demo/addons/bin/lib{}{}{}".format(library_name, env["suffix"], env["SHLIBSUFFIX"]),
         source=sources,
     )
 
 Default(library)
+
+Command("{{name}}.gdextension", "demo/addons/bin/{{name}}.gdextension", Copy("$TARGET", "$SOURCE"))
