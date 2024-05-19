@@ -2,7 +2,7 @@
 import os
 import sys
 
-library_name = "gdstatemachine"
+library_name = "{{name}}"
 
 env = SConscript("godot-cpp/SConstruct")
 # For reference:
