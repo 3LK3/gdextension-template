@@ -2,8 +2,16 @@
 import os
 import sys
 
-library_name = "{{lib_name}}"
 
+# Settings
+#
+library_name = "{{lib_name}}"
+output_path = "demo/addons/{{name}}"
+source_path = "src"
+
+
+# Build definition
+#
 env = SConscript("godot-cpp/SConstruct")
 # For reference:
 # - CCFLAGS are compilation flags shared between C and C++
@@ -14,23 +22,18 @@ env = SConscript("godot-cpp/SConstruct")
 # - LINKFLAGS are for linking flags
 
 # tweak this if you want to use different folders, or more folders, to store your source code in.
-env.Append(CPPPATH=["src/"])
-sources = Glob("src/*.cpp")
+env.Append(CPPPATH=[f"{source_path}/"])
+sources = Glob(f"{source_path}/*.cpp")
 
 if env["platform"] == "macos":
     library = env.SharedLibrary(
-        "demo/addons/bin/lib{}.{}.{}.framework/lib{}.{}.{}".format(
-            library_name, env["platform"], env["target"], 
-            library_name, env["platform"], env["target"]
-        ),
+        f"{output_path}/lib{library_name}.{env["platform"]}.{env["target"]}.framework/lib{library_name}.{env["platform"]}.{env["target"]}",
         source=sources,
     )
 else:
     library = env.SharedLibrary(
-        "demo/addons/bin/lib{}{}{}".format(library_name, env["suffix"], env["SHLIBSUFFIX"]),
+        f"{output_path}/lib{library_name}{env["suffix"]}{env["SHLIBSUFFIX"]}",
         source=sources,
     )
 
 Default(library)
-
-# Command("{{name}}.gdextension", "demo/addons/bin/{{name}}.gdextension", Copy("$TARGET", "$SOURCE"))
