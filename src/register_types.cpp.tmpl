@@ -8,7 +8,7 @@ void initialize_{{name}}_module(ModuleInitializationLevel p_level)
         return;
     }
 
-    ClassDB::register_class<{{class_name}}>();
+    GDREGISTER_CLASS({{class_name}});
 }
 
 void uninitialize_{{name}}_module(ModuleInitializationLevel p_level)

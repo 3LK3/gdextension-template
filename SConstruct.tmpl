@@ -6,34 +6,27 @@ import sys
 # Settings
 #
 library_name = "{{lib_name}}"
-output_path = "demo/addons/{{name}}"
+demo_addons_path = "demo/addons/{{name}}"
+bin_path = "bin"
 source_path = "src"
 
 
 # Build definition
 #
 env = SConscript("godot-cpp/SConstruct")
-# For reference:
-# - CCFLAGS are compilation flags shared between C and C++
-# - CFLAGS are for C-specific compilation flags
-# - CXXFLAGS are for C++-specific compilation flags
-# - CPPFLAGS are for pre-processor flags
-# - CPPDEFINES are for pre-processor defines
-# - LINKFLAGS are for linking flags
-
-# tweak this if you want to use different folders, or more folders, to store your source code in.
 env.Append(CPPPATH=[f"{source_path}/"])
+
 sources = Glob(f"{source_path}/*.cpp")
 
-if env["platform"] == "macos":
-    library = env.SharedLibrary(
-        f"{output_path}/lib{library_name}.{env["platform"]}.{env["target"]}.framework/lib{library_name}.{env["platform"]}.{env["target"]}",
-        source=sources,
-    )
-else:
-    library = env.SharedLibrary(
-        f"{output_path}/lib{library_name}{env["suffix"]}{env["SHLIBSUFFIX"]}",
-        source=sources,
-    )
+library_file_name = "{}{}{}".format(library_name, env["suffix"], env["SHLIBSUFFIX"])
+if env["platform"] == "macos" or env["platform"] == "ios":
+    file_name = "{}.{}.{}".format(library_name, env["platform"], env["target"])
+    library_file_name = "{}.framework/{}".format(file_name, file_name)
 
-Default(library)
+library_file = "{}/{}/{}".format(bin_path, env["platform"], library_file_name)
+library = env.SharedLibrary(library_file, source=sources)
+
+copy_demo = env.InstallAs("{}/{}".format(demo_addons_path, library_file_name), library)
+
+default_args = [library, copy_demo]
+Default(*default_args)
