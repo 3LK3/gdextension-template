@@ -18,6 +18,12 @@ env.Append(CPPPATH=[f"{source_path}/"])
 
 sources = Glob(f"{source_path}/*.cpp")
 
+if env["target"] in ["editor", "template_debug"]:
+    doc_data = env.GodotCPPDocData(
+        f"{source_path}/gen/doc_data.gen.cpp", source=Glob("doc_classes/*.xml")
+    )
+    sources.append(doc_data)
+
 library_file_name = "{}{}{}".format(library_name, env["suffix"], env["SHLIBSUFFIX"])
 if env["platform"] == "macos" or env["platform"] == "ios":
     file_name = "{}.{}.{}".format(library_name, env["platform"], env["target"])
